@@ -1,0 +1,52 @@
+# ===================================================================
+# Arquivos de Build e Dependências do Maven
+# A pasta 'target' é recriada a cada compilação, nunca deve ser versionada.
+# ===================================================================
+/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# ===================================================================
+# Arquivos de Log
+# Logs são específicos de cada execução e não devem ser versionados.
+# ===================================================================
+*.log
+logs/
+message_logs/
+
+# ===================================================================
+# Arquivos Específicos da IDE IntelliJ
+# Ignora configurações pessoais e de workspace da sua IDE.
+# ===================================================================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ===================================================================
+# Arquivos do Sistema Operacional
+# Ignora arquivos de sistema comuns (macOS, Windows).
+# ===================================================================
+.DS_Store
+Thumbs.db
+
+# ===================================================================
+# Arquivos Temporários e de Execução
+# ===================================================================
+*.jar
+*.war
+hs_err_pid*
+
+# ===================================================================
+# (Opcional) Arquivos de Configuração Local
+# Para evitar enviar senhas de banco de dados de produção para o Git.
+# Crie um arquivo application-local.yml com suas senhas e ele será ignorado.
+# Para ativá-lo, rode a aplicação com o profile 'local'.
+# ===================================================================
+application-local.yml
+application-local.properties

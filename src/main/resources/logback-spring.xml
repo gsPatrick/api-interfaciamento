@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Define a localização dos arquivos de log -->
+    <property name="LOGS_PATH" value="./logs" />
+
+    <!-- Appender para o Console (saída padrão do terminal) -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!-- Appender para Arquivo com Rotação (cria um novo arquivo por dia) -->
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_PATH}/lab-integration-api.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--
+                A CORREÇÃO ESTÁ AQUI: O PADRÃO ERA %d %p %C{1.} [%t] %m%n
+                O correto é %C{1} sem o ponto.
+            -->
+            <Pattern>%d %p %C{1} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Rotação diária -->
+            <fileNamePattern>${LOGS_PATH}/archived/lab-integration-api-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- Mantém o histórico de 30 dias -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Configuração do Nível de Log -->
+    <root level="info">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- Nível de log específico para o nosso pacote da aplicação -->
+    <logger name="com.lab.api" level="info" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>

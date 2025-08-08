@@ -1,0 +1,92 @@
+# Configurações do Servidor da API REST
+server:
+  port: 8080
+
+# Bloco de configurações para os equipamentos laboratoriais
+equipments:
+  devices:
+    maglumi-x3:
+      name: "MAGLUMI X3"
+      enabled: false
+      protocol: HL7
+      communication:
+        type: TCP
+        port: 5001
+
+    abbott-c8000:
+      name: "Abbott Architect c8000"
+      enabled: false
+      protocol: ASTM
+      communication:
+        type: SERIAL
+        port-name: COM3
+        baud-rate: 9600
+        data-bits: 8
+        stop-bits: 1
+        parity: NONE
+
+    cell-dyn-ruby:
+      name: "CELL-DYN RUBY"
+      enabled: false
+      protocol: ASTM
+      communication:
+        type: SERIAL
+        port-name: COM5
+        baud-rate: 9600
+        data-bits: 8
+        stop-bits: 1
+        parity: NONE
+
+    # CORREÇÃO APLICADA AQUI: Garantindo que 'port-name' está correto e habilitado.
+    integra-400-plus:
+      name: "INTEGRA 400/PLUS"
+      enabled: true
+      protocol: ROCHE_HIF
+      communication:
+        type: SERIAL
+        port-name: COM5   # <-- Chave correta e valor correto
+        baud-rate: 9600
+        data-bits: 8
+        stop-bits: 1
+        parity: NONE
+
+    cobas-e801:
+      name: "COBAS e 801"
+      enabled: false
+      protocol: HL7
+      communication:
+        type: TCP
+        port: 5002
+
+    sysmex-xn-550:
+      name: "Sysmex XN-550"
+      enabled: false
+      protocol: ASTM
+      communication:
+        type: TCP
+        port: 5003
+
+# Configurações de Banco de Dados e JPA
+spring:
+  datasource:
+    url: jdbc:h2:mem:labdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# Configuração de Logs
+logging:
+  level:
+    com.lab.api: INFO
+    com.lab.api.parser.hl7.Hl7ParserService: DEBUG
+    root: WARN
+  file:
+    name: ./logs/lab-integration-api.log
